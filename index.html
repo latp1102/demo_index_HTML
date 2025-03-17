@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video with Flying Hearts and Stars</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #fdf6f9;
+      overflow: hidden;
+    }
+
+    .play-btn {
+      margin-top: 100px;
+      padding: 14px 30px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .play-btn:hover {
+      background-color: #ff85c1;
+      transform: scale(1.05);
+    }
+
+    #video-container {
+      display: none;
+      position: relative;
+      margin-top: 30px;
+      display: inline-block;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #myVideo {
+      width: 640px;
+      height: 360px;
+      border-radius: 12px;
+    }
+
+    .heart, .star {
+      position: absolute;
+      font-size: 30px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    .heart {
+      color: red;
+    }
+
+    .star {
+      color: gold;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="play-btn">💖 Click to Watch</button>
+
+  <div id="video-container">
+    <video id="myVideo" src="./public/video/video02.mp4" controls></video>
+  </div>
+
+  <script>
+    const button = document.querySelector('.play-btn');
+    const videoContainer = document.getElementById('video-container');
+    const video = document.getElementById('myVideo');
+
+    button.addEventListener('click', () => {
+      button.style.display = 'none';
+      videoContainer.style.display = 'inline-block'; 
+      setTimeout(() => {
+        videoContainer.style.opacity = 1;
+      }, 100);
+      video.play();
+
+      setInterval(() => {
+        const newHeart = document.createElement('div');
+        newHeart.classList.add('heart');
+        newHeart.innerText = '❤️';
+        newHeart.style.left = Math.random() * window.innerWidth + 'px';
+        newHeart.style.bottom = '0px';
+        document.body.appendChild(newHeart);
+        setTimeout(() => {
+          newHeart.remove();
+        }, 3000);
+      }, 300);
+
+      setInterval(() => {
+        const newStar = document.createElement('div');
+        newStar.classList.add('star');
+        newStar.innerText = '⭐';
+        newStar.style.left = Math.random() * window.innerWidth + 'px';
+        newStar.style.bottom = '0px';
+        document.body.appendChild(newStar);
+        setTimeout(() => {
+          newStar.remove();
+        }, 3000);
+      }, 500);
+    });
+  </script>
+
+</body>
+</html>
